@@ -7,6 +7,7 @@ public class RocketScript : MonoBehaviour
     public float speed = 5;
     private Rigidbody2D rb; 
     public GameObject obstacleRaycast;
+    public float raycastDistance;
 
     // Start is called before the first frame update
     void Start()
@@ -18,21 +19,20 @@ public class RocketScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RaycastHit2D hitObstacle = Physics2D.Raycast(obstacleRaycast.transform.position, transform.TransformDirection(Vector2.right) * 10f);
+        RaycastHit2D hitObstacle = Physics2D.Raycast(obstacleRaycast.transform.position, transform.TransformDirection(Vector2.right) * raycastDistance);
 
         if(hitObstacle){
             Debug.Log(hitObstacle.collider.name);
-            Debug.DrawRay(obstacleRaycast.transform.position, transform.TransformDirection(Vector2.right) * 10f, Color.red);
+            Debug.DrawRay(obstacleRaycast.transform.position, transform.TransformDirection(Vector2.right) * raycastDistance, Color.red);
         }
 
         else{
             Debug.Log("All Clear!");
-            Debug.DrawRay(obstacleRaycast.transform.position, transform.TransformDirection(Vector2.right) * 10f, Color.red);
+            Debug.DrawRay(obstacleRaycast.transform.position, transform.TransformDirection(Vector2.right) * raycastDistance, Color.blue);
         }
     }
     
-    private void OnCollisionEnter2D(Collision2D other){
-        if(other.gameObject.tag == "Asteroid")
+    private void OnTriggerEnter2D(Collider2D other){
         Debug.Log("hit");
         Destroy(other.gameObject);
         this.gameObject.SetActive(false);

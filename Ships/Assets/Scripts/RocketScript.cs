@@ -46,6 +46,10 @@ public class RocketScript : MonoBehaviour
             if(bottomHit && GetVerticalSpeed() == 0){
                 rb.velocity = new Vector2(speed*10, 20f).normalized;
             }
+
+            else{
+                rb.velocity = new Vector2(speed*10, 20f).normalized;
+            }
         }
 
         else if(bottomHit){
